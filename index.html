@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEAMBUCK Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* 업로드된 NewYork 폰트 강제 적용 */
+        @font-face {
+            font-family: 'NewYorkCustom';
+            /* 파일명과 확장자가 업로드된 파일과 정확히 일치해야 합니다 */
+            src: url('NewYork PERSONAL USE.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-shine: rgba(255, 255, 255, 0.4);
+            --bg-color: #212121;
+            --primary-color: #1ab889;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
             --text-color: #ffffff;
         }
 
@@ -20,17 +32,45 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e1b4b, #311042);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- 상단 네비게이션 --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(33, 33, 33, 0.7);
+        }
+
+        .logo-container img {
+            height: 40px;
+            filter: drop-shadow(0 0 5px rgba(26, 184, 137, 0.3));
+        }
+
+        .team-intro-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .team-intro-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
         /* --- 메인 히어로 섹션 --- */
@@ -41,92 +81,49 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            perspective: 1000px;
         }
 
-        /* 리퀴드 글래스 메인 오브젝트 */
-        .liquid-glass-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 60px 100px;
+        .title-container {
             text-align: center;
-            box-shadow: 
-                0 8px 32px 0 rgba(0, 0, 0, 0.37),
-                inset 0 0 32px var(--glass-shine);
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10;
         }
 
-        /* 액체 같은 내부 하이라이트 효과 */
-        .liquid-glass-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-            transform: rotate(0deg);
-            animation: liquidMove 8s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes liquidMove {
-            0% { transform: rotate(0deg) translate(0, 0); }
-            50% { transform: rotate(180deg) translate(-10px, 15px); }
-            100% { transform: rotate(360deg) translate(0, 0); }
-        }
-
-        /* 메인 타이틀 & 개별 글자 상호작용 */
         .main-title {
-            font-size: 5.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
+            /* 정의한 커스텀 폰트 이름 사용 */
+            font-family: 'NewYorkCustom', serif;
+            font-size: 9rem;
+            font-weight: normal;
+            letter-spacing: -2px; /* 폰트 특성에 맞춰 자간 조정 */
+            margin-bottom: 5px;
             display: flex;
             justify-content: center;
             cursor: default;
+            color: var(--text-color);
         }
 
         .main-title span {
             display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            /* 폰트가 로드되기 전까지 serif 계열로 보이도록 설정 */
+            font-family: inherit;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
         .main-title span:hover {
-            transform: translateY(-15px) scale(1.15) rotate(5deg);
-            color: #67e8f9;
-            text-shadow: 0 15px 20px rgba(103, 232, 249, 0.4);
+            transform: translateY(-25px) scale(1.1) rotate(-2deg);
+            color: var(--primary-color);
+            filter: drop-shadow(0 15px 30px rgba(26, 184, 137, 0.5));
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 300;
-            letter-spacing: 6px;
-            opacity: 0.9;
-            background: linear-gradient(to right, #ffffff, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            letter-spacing: 2px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+            letter-spacing: 12px;
+            opacity: 0.8;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-top: 10px;
         }
 
         /* --- 프로젝트 카드 스택 섹션 --- */
@@ -134,171 +131,206 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 100px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 80px; /* 카드들 사이의 간격 */
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        /* 스크롤 시 겹치며 쌓이는 스택 구조 설정 */
         .card-stack-container {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #2a2a2a;
+            border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 40px;
             display: grid;
-            grid-template-columns: 1.2s 1fr;
-            gap: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            
-            /* 카드 스택 핵심 속성: 스크롤 시 상단에 고정 */
+            grid-template-columns: 1.2fr 1fr;
+            overflow: hidden;
             position: sticky;
-            top: 100px; 
-            
+            top: 120px;
+            height: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
 
-        /* 디바이스별 그리드 조정 */
-        @media (max-width: 768px) {
-            .project-card {
-                grid-template-columns: 1fr;
-                padding: 24px;
-                top: 60px;
-            }
-            .main-title { font-size: 3.5rem; }
-            .liquid-glass-container { padding: 40px 30px; }
-        }
-
-        .project-img-wrapper {
+        .project-img-box {
             width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            aspect-ratio: 16 / 10;
-            background: #111;
+            height: 100%;
+            background: #1a1a1a;
         }
 
-        .project-img {
+        .project-img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            opacity: 0.8;
+            transition: 0.3s;
         }
 
-        .project-card:hover .project-img {
-            transform: scale(1.05);
+        .project-card:hover .project-img-box img {
+            opacity: 1;
         }
 
         .project-info {
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .project-name {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #67e8f9;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-family: 'NewYorkCustom', serif; /* 프로젝트 제목에도 적용 */
         }
 
         .project-desc {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            opacity: 0.8;
-            word-break: keep-all;
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.7;
+        }
+
+        /* --- 모달 --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            border: 1px solid var(--primary-color);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .gen-item { margin-bottom: 20px; }
+        .gen-label { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
+        .gen-list { opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 4.5rem; }
+            .project-card { grid-template-columns: 1fr; height: auto; top: 80px; }
+            header { padding: 15px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 메인 히어로 섹션 -->
+    <header>
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/UIimage/logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/120x40?text=TEAMBUCK'">
+        </div>
+        <button class="team-intro-btn" onclick="openModal()">Introduce Team</button>
+    </header>
+
     <section class="hero-section">
-        <div class="liquid-glass-container" id="glassContainer">
-            <h1 class="main-title" id="interactiveTitle">TEAMBUCK</h1>
+        <div class="title-container">
+            <h1 class="main-title" id="titleText">TEAMBUCK</h1>
             <p class="subtitle">창의성을 현실로</p>
         </div>
-        <div class="scroll-indicator">SCROLL DOWN ↓</div>
     </section>
 
-    <!-- 프로젝트 리스트 (카드 스택 섹션) -->
     <main class="projects-section">
-        <h2 class="section-title">Our Projects</h2>
-        
         <div class="card-stack-container">
-            <!-- 프로젝트 1 -->
             <div class="project-card">
-                <div class="project-img-wrapper">
-                    <!-- 깃허브 저장소 에셋 경로 반영 (임의 파일명 매칭 필요) -->
-                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project1.png" alt="프로젝트 1 이미지" class="project-img" onerror="this.src='https://via.placeholder.com/600x400/222/fff?text=TEAMBUCK+Project'">
+                <div class="project-img-box">
+                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project1.png" alt="Project 1" onerror="this.src='https://via.placeholder.com/600x400/333/666?text=Project+1'">
                 </div>
                 <div class="project-info">
-                    <h3 class="project-name">Project 01</h3>
-                    <p class="project-desc">TEAMBUCK에서 진행한 첫 번째 메인 프로젝트에 대한 설명 공간입니다. 리퀴드 글래스 스타일의 포드폴리오 안에서 스크롤을 내릴 때마다 카드가 차곡차곡 쌓이는 인터랙션을 경험할 수 있습니다.</p>
-                </div>
-            </div>
-            
-            <!-- 프로젝트 2 -->
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project2.png" alt="프로젝트 2 이미지" class="project-img" onerror="this.src='https://via.placeholder.com/600x400/222/fff?text=TEAMBUCK+Project'">
-                </div>
-                <div class="project-info">
-                    <h3 class="project-name">Project 02</h3>
-                    <p class="project-desc">TEAMBUCK에서 진행한 두 번째 프로젝트에 대한 설명 공간입니다. 카드들이 `position: sticky` 속성으로 엮여있어, 아래로 스크롤 시 이전 카드 위에 겹쳐지며 미려한 스택 효과를 연출합니다.</p>
+                    <h3 class="project-name">DUKKI MUSIC</h3>
+                    <p class="project-desc">두끼뮤직은 모든것이 가능한 AI 음악 스트리밍 플랫폼 입니다. 우리 팀의 가장 성공작이자 대표하는 프로젝트 입니다. 현재까지도 계약된 아티스트와 국내 AI음악 스트리밍 플랫폼을 이끌어나가고 있습니다.</p>
                 </div>
             </div>
 
-            <!-- 프로젝트 3 -->
             <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project3.png" alt="프로젝트 3 이미지" class="project-img" onerror="this.src='https://via.placeholder.com/600x400/222/fff?text=TEAMBUCK+Project'">
+                <div class="project-img-box">
+                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project2.png" alt="Project 2" onerror="this.src='https://via.placeholder.com/600x400/333/666?text=Project+2'">
                 </div>
                 <div class="project-info">
-                    <h3 class="project-name">Project 03</h3>
-                    <p class="project-desc">TEAMBUCK에서 진행한 세 번째 프로젝트에 대한 설명 공간입니다. 깃허브 레포지토리에 저장된 이미지를 불러오도록 세팅해 두었으며 가독성 높은 레이아웃을 제공합니다.</p>
+                    <h3 class="project-name">FAKE or TRUE</h3>
+                    <p class="project-desc">페이크 오어 트루는 매 라운드마다 가짜세계와 진짜세계를 결정해 심장쫄깃한 경쟁전을 벌이는 심리게임 입니다. 유튜버 "양띵"님의 컨텐츠를 보고 따라 만들었으며 2024년 9월 잠시 진행된 프로젝트 입니다. </p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-img-box">
+                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project3.png" alt="Project 3" onerror="this.src='https://via.placeholder.com/600x400/333/666?text=Project+3'">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-name">DUKKI FocusFlight</h3>
+                    <p class="project-desc">두끼 포커스플라이트는 집중 비행 시뮬레이터입니다. 비행을 설정하고, 타이머를 작동시켜 집중도를 올려보세요! 현재는 개발 중지된 프로젝트 입니다.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-img-box">
+                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project2.png" alt="Project 2" onerror="this.src='https://via.placeholder.com/600x400/333/666?text=Project+2'">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-name">WBUCKWIKI</h3>
+                    <p class="project-desc">우벅위키는 2020년 베타버전을 통해 시작된 사건정리 프로젝트입니다. 2023년 11월 개발 중지된 프로젝트 입니다. </p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-img-box">
+                    <img src="https://raw.githubusercontent.com/WBUCK131/TEAMBUCK/main/projectimage/project2.png" alt="Project 2" onerror="this.src='https://via.placeholder.com/600x400/333/666?text=Project+2'">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-name">미세지금</h3>
+                    <p class="project-desc">미세지금은 2021년 개발시작된 카드형 날씨 앱 입니다.</p>
                 </div>
             </div>
         </div>
     </main>
 
+    <div class="modal-overlay" id="teamModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 25px; color: var(--primary-color);">Team Introduction</h2>
+            <div class="gen-item">
+                <div class="gen-label">1세대</div>
+                <div class="gen-list">쿠팥, 김건, 갤팁</div>
+            </div>
+            <div class="gen-item">
+                <div class="gen-label">2세대</div>
+                <div class="gen-list">갤팁, 슈퍼익끙림</div>
+            </div>
+            <div class="gen-item">
+                <div class="gen-label">3세대</div>
+                <div class="gen-list">갤팁, 슈퍼익끙림, 글로웅, 니차욘따라락</div>
+            </div>
+            <div class="gen-item" style="border: 1px solid var(--primary-color); padding: 15px; border-radius: 10px;">
+                <div class="gen-label">DUKKI TEAM (4세대)</div>
+                <div class="gen-list">갤팁, 슈퍼익끙림, 니차욘따라락, 글로웅, Pythonbeginer</div>
+            </div>
+            <button onclick="closeModal()" style="margin-top: 20px; background: var(--primary-color); border: none; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">닫기</button>
+        </div>
+    </div>
+
     <script>
-        // 1. 메인 타이틀 글자 분리 처리 (TEAMBUCK 한 글자씩 쪼개기)
-        const titleContainer = document.getElementById('interactiveTitle');
-        const text = titleContainer.innerText;
-        titleContainer.innerHTML = '';
-
-        [...text].forEach(char => {
+        // 글자 쪼개기 애니메이션
+        const title = document.getElementById('titleText');
+        const text = title.innerText;
+        title.innerHTML = '';
+        [...text].forEach(c => {
             const span = document.createElement('span');
-            span.innerText = char;
-            titleContainer.appendChild(span);
+            span.innerText = c;
+            title.appendChild(span);
         });
 
-        // 2. 리퀴드 글래스 박스 마우스 무브 반응형 입체 효과 (3D tilt)
-        const glassContainer = document.getElementById('glassContainer');
-        
-        window.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
-            glassContainer.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
-        // 마우스가 화면을 벗어나면 원래대로 리셋
-        window.addEventListener('mouseleave', () => {
-            glassContainer.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
+        // 모달 제어
+        function openModal() { document.getElementById('teamModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('teamModal').style.display = 'none'; }
     </script>
 </body>
 </html>
